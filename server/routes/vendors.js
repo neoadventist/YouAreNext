@@ -70,7 +70,11 @@ exports.getVendorInfo = function(req,res){
 
 exports.addVisitor = function(req,res){
 	
-
+	client.messages.list(function(err, data) {
+		data.messages.forEach(function(message) {
+			console.log(message.Body);
+		});
+	});
 
 	
 	var shortcode = req.body.shortcode;
@@ -96,8 +100,8 @@ exports.addVisitor = function(req,res){
 
 exports.finishVisitor = function(req,res){
 
-	var visitorId = req.params.visitorId;
-	var vendorId = req.body.vendorId;
+	var visitorId = req.body.visitorId;
+
 	
 	var obj = {'vendorId':v.toString()};
 	db.Visitors.update({_id:visitorId},{$set: { finished: true }},function(err,visitors){

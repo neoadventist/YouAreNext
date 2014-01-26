@@ -46,6 +46,12 @@ app.controller('now-serving',['$scope','DFPfactory',function($scope,DFPfactory){
 		$scope.data.shortcode = data.shortcode;
 	});
 	
+	$scope.next = function(){
+		DFPfactory.getVenderInfo().then(function(data){
+			$scope.data.servingNumber= data.currentlySeen;
+			$scope.data.shortcode = data.shortcode;
+		});	
+	};
 }]);
 
 app.factory('DFPfactory',['$http', function($http) {
@@ -91,7 +97,19 @@ app.factory('DFPfactory',['$http', function($http) {
 					    });
 					    return promise;				
 				
-			}
+			},
+			nextPerson:function(visitorId){
+			  	var config = {
+					method: 'POST',
+					url: '/API/done',
+					data: {visitorId:visitorId}
+				    };
+				    
+				    var promise = $http(config).then(function (response) {
+						return response;
+				    });
+				    return promise;
+				}
 	};
 	return actions; 
 }]);
