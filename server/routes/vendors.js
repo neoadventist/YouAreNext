@@ -28,12 +28,13 @@ exports.getVendorInfo = function(req,res){
 };
 
 exports.addVisitor = function(req,res){
-	var shortcode = req.body.code; 
-	db.Vendors.findOne({code:shortcode},function(err,vendor){
+	var shortcode = req.body.code;
+	console.log(req.body); 
+	db.Shortcodes.findOne({code:shortcode},function(err,shortcode){
 		if(err){
 			res.send(err,500);
 		}else{
-			var vendorId = req.body.vendorId; 
+			var vendorId = shortcode.vendorId; 
 	
 		db.Visitors.find({vendorId:vendorId,position:{ $gt: 0 }}),function(err,visitors){
 		
