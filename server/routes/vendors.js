@@ -9,8 +9,20 @@ exports.createVendor = function (req, res) {
 		if (err){
 			res.send(err,500); 
 		}else{
-			res.send({message:'Message Created',data:vendor},201);  
+			res.send({message:'Message Created',vendorId:vendor._id},201);  
 		}	
 		// saved!
+	});
+};
+
+exports.getVendorInfo = function(req,res){
+	var vendorId=req.params.vendorId;
+	
+	db.Vendors.findOne({_id:vendorId},function(err,vendor){
+		if(err){
+			res.send(err,500);
+		}else{
+			res.send(vendor,200);
+		}
 	});
 };
