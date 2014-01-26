@@ -8,7 +8,7 @@ var Shortcodes = mongoose.model('Shortcodes', shortcodesSchema);
 var vendorsSchema = new Schema({name:{type: String, default: null},email:{type: String, default: null},greeting:{type: String, default: null}});
 var Vendors = mongoose.model('Vendors', vendorsSchema);
 
-var visitorsSchema = new Schema({name:{type: String, default: null},vendorId:{type: String, default: null},time:{in:{type: Date, default: null},out:{type: Date, default: null},position:{type: Number, default: null}}});
+var visitorsSchema = new Schema({name:{type: String, default: null},vendorId:{type: String, default: null},time:{in:{type: Date, default: new Date()},out:{type: Date, default: null},position:{type: Number, default: null}}});
 var Visitors = mongoose.model('Visitors', visitorsSchema);
 
 
