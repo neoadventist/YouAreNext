@@ -1,5 +1,6 @@
 {
-    "name": "DigitalFastPass!",
+    "name": "DigitalFastPass",
+    "author": "DFP",
     "description" : "Go to the Front of the Line!!!",
     "version": "0.0.1",
     "private": true,
@@ -14,7 +15,7 @@
         "connect-mongo": "0.3.2",
         "moment": "2.1.0",
         "moment-timezone": "0.0.2",
-	"xml2js": "*",
-	"twilio":"*"
+        "xml2js": "*",
+        "twilio":"*"
     }
 }
