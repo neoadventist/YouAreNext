@@ -122,14 +122,22 @@ exports.finishVisitor = function(req,res){
 
 	
 	
-	db.Visitors.update({_id:visitorId},{$set: { finished: true }},function(err,result){
+	db.Visitors.findOne({_id:visitorId},function(err,v){
 		console.log(err);
-		console.log(result);
+		console.log(v);
 		if(err){
 			res.send(err,500);
 		}else{
-					
-			res.send(result,200);
+			v.finished = true;
+	        v.save(function(err) {
+	            if(!err) {
+	                
+	            }
+	            else {
+	            	res.send(result,200);
+	            }
+	        });
+			
 			
 		}
 
