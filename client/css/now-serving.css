@@ -1,33 +1,143 @@
-/* line 1, ../scss/now-serving.scss */
+/* Space out content a bit */
+/* line 2, ../scss/now-serving.scss */
 body {
-  background-color: #ccc;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-/* line 4, ../scss/now-serving.scss */
+/* Everything but the jumbotron gets side spacing for mobile first views */
+/* line 10, ../scss/now-serving.scss */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+/* line 16, ../scss/now-serving.scss */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Make the masthead heading the same height as the navigation */
+/* line 20, ../scss/now-serving.scss */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* line 27, ../scss/now-serving.scss */
+.header .logo {
+  background: url("/i/icon.png");
+  width: 64px;
+  height: 64px;
+  background-size: contain;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Custom page footer */
+/* line 38, ../scss/now-serving.scss */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  /* line 46, ../scss/now-serving.scss */
+  .container {
+    max-width: 730px;
+  }
+}
+/* line 50, ../scss/now-serving.scss */
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+/* line 55, ../scss/now-serving.scss */
+.jumbotron2 {
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 60px;
+}
+
+/* line 62, ../scss/now-serving.scss */
+.jumbotron2 h1 {
+  font-size: 4em;
+}
+
+/* line 65, ../scss/now-serving.scss */
+.vspacer {
+  height: 20px;
+}
+
+/* Supporting marketing content */
+/* line 68, ../scss/now-serving.scss */
+.marketing {
+  margin: 40px 0;
+}
+
+/* line 71, ../scss/now-serving.scss */
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  /* line 80, ../scss/now-serving.scss */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Space out the masthead */
+  /* line 85, ../scss/now-serving.scss */
+  .header {
+    margin-bottom: 30px;
+  }
+
+  /* Remove the bottom border on the jumbotron for visual effect */
+  /* line 89, ../scss/now-serving.scss */
+  .jumbotron2 {
+    border-bottom: 0;
+  }
+}
+/* line 94, ../scss/now-serving.scss */
 .bs-header {
   background-color: #000;
   padding: 30px 15px 40px;
   text-align: left;
   border-bottom: 4px solid #aaa;
 }
-/* line 10, ../scss/now-serving.scss */
+/* line 100, ../scss/now-serving.scss */
 .bs-header h1 {
   font-size: 48px;
   color: #ccc;
 }
 @media (max-width: 900px) {
-  /* line 10, ../scss/now-serving.scss */
+  /* line 100, ../scss/now-serving.scss */
   .bs-header h1 {
     font-size: 36px;
   }
 }
 @media (max-width: 714px) {
-  /* line 10, ../scss/now-serving.scss */
+  /* line 100, ../scss/now-serving.scss */
   .bs-header h1 {
     font-size: 28px;
   }
 }
-/* line 21, ../scss/now-serving.scss */
+/* line 111, ../scss/now-serving.scss */
 .bs-header h1 span {
   font-weight: bold;
   color: #eee;
@@ -37,28 +147,28 @@ body {
 }
 
 @media (max-width: 320px) {
-  /* line 33, ../scss/now-serving.scss */
+  /* line 123, ../scss/now-serving.scss */
   .bs-header {
     padding: 20px 8px 30px;
   }
-  /* line 35, ../scss/now-serving.scss */
+  /* line 125, ../scss/now-serving.scss */
   .bs-header h1 {
     font-size: 18px;
   }
 }
-/* line 40, ../scss/now-serving.scss */
+/* line 130, ../scss/now-serving.scss */
 .now-serving h1 {
   text-transform: uppercase;
   font-weight: bold;
   color: #666;
 }
 
-/* line 46, ../scss/now-serving.scss */
+/* line 136, ../scss/now-serving.scss */
 .vspacer {
   height: 20px;
 }
 
-/* line 48, ../scss/now-serving.scss */
+/* line 138, ../scss/now-serving.scss */
 .serv-num {
   text-align: center;
   background-color: #c61d2c;
@@ -73,24 +183,24 @@ body {
 }
 
 @media (max-width: 600px) {
-  /* line 62, ../scss/now-serving.scss */
+  /* line 152, ../scss/now-serving.scss */
   .serv-num {
     font-size: 160px;
   }
 }
 @media (max-width: 460px) {
-  /* line 67, ../scss/now-serving.scss */
+  /* line 157, ../scss/now-serving.scss */
   .serv-num {
     font-size: 120px;
   }
 }
 @media (max-width: 360px) {
-  /* line 72, ../scss/now-serving.scss */
+  /* line 162, ../scss/now-serving.scss */
   .serv-num {
     font-size: 96px;
   }
 
-  /* line 75, ../scss/now-serving.scss */
+  /* line 165, ../scss/now-serving.scss */
   .now-serving h1 {
     font-size: 24px;
   }
