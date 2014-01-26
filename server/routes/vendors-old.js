@@ -51,25 +51,39 @@ exports.getVendorInfo = function(req,res){
 
 exports.addVisitor = function(req,res){
 	var shortcode = req.body.shortcode;
-	
-	db.Shortcodes.findOne({code:shortcode},function(err,s){
-		
-		var obj = {	vendorId:s.vendorId};
-		
-		db.Visitors.find(obj,function(err,result){
-			var n = result.length;
-			console.log(result);
-			var v = new db.Visitors({position:n,vendorId:s.vendorId});
-			v.save(function(err,data){
-				res.send(data);
+
+	db.Shortcodes.findOne({code:shortcode},function(err,scode){
+		if(err){
+			res.send(err,500);
+		} else {
+
+			var vendorId = scode.vendorId;
+
+			db.Visitors.find( {vendorId : vendorId}, function(err, v) {
+				if(err){
+					
+				}else{
+					var lastPosition = v.length > 0 ? v.length : 1;
+					var currentlySeen = v.filter(function(visitor){
+						if(visitor.finished){
+							return visitor;
+						}
+					}).length;
+					
+
+					db.Visitors.save( {vendorId:vendorId,position:Number(lastPosition)}, function(err, visitor) {
+						if (err) {
+							res.send(err, 500);
+						} else {
+							res.send(visitor, 201);
+						}
+					});
+					
+				}
 			});
-			
-			
-		});		
-	});
-	
-	
-}
+		}
+	})
+};
 
 exports.finishVisitor = function(req,res){
 
