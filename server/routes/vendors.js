@@ -4,6 +4,25 @@
 var db = require('../database.js'); 
 var mongoose = require('mongoose');
 
+
+//Twilio Credentials 
+var accountSid = 'AC2a2dd305a97c253a61b43ebd590318f1'; 
+var authToken = '66cf621512c2ec00e094d98e19005c22'; 
+ 
+//require the Twilio module and create a REST client 
+var client = require('twilio')(accountSid, authToken); 
+
+/*
+client.messages.create({  
+	from: "+15109240044",
+	to:"8185886314",
+	body:"Hey, This is Spencer!!"
+}, function(err, message) { 
+	console.log(err);
+	console.log(message.sid); 
+});
+*/
+
 exports.createVendor = function (req, res) {
 	var shortcodeId = req.body.shortcodeId;
 	db.Vendors.create({shortcodeId:shortcodeId}, function (err, vendor) {
@@ -50,6 +69,10 @@ exports.getVendorInfo = function(req,res){
 };
 
 exports.addVisitor = function(req,res){
+	
+
+
+	
 	var shortcode = req.body.shortcode;
 	
 	db.Shortcodes.findOne({code:shortcode},function(err,s){
