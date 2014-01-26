@@ -40,16 +40,17 @@ app.controller('now-serving',['$scope','DFPfactory',function($scope,DFPfactory){
 			servingNumber:0
 	};
 	
-	DFPfactory.getVenderInfo().then(function(data){
-		console.log(data);
-		$scope.data.servingNumber= data.currentlySeen;
-		$scope.data.shortcode = data.shortcode;
-	});
-	
-	$scope.next = function(){
+	setInterval(
+	function(){
 		DFPfactory.getVenderInfo().then(function(data){
+			console.log(data);
 			$scope.data.servingNumber= data.currentlySeen;
 			$scope.data.shortcode = data.shortcode;
+		});
+	},3000	);
+	$scope.next = function(){
+		DFPfactory.nextPerson().then(function(data){
+			
 		});	
 	};
 }]);
