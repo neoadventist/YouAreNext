@@ -5,7 +5,7 @@ var db = require('../database.js');
 var mongoose = require('mongoose');
 
 exports.create = function (req, res) {
-	var suggestedCode = req.body.code;
+	var suggestedCode = req.body.shortcode;
 console.log(req.body);
 	db.Shortcodes.findOne({code:suggestedCode}, function (err, result) {
 		if (err){
@@ -15,27 +15,12 @@ console.log(req.body);
 				res.send({message:'Code is Already Taken,try again'},200);
 			}
 			else{
-				db.Shortcodes.create({code:suggestedCode}, function (err, result) {
+				db.Shortcodes.create({code:suggestedCode}, function (err, shortcode) {
 					if (err){
 						res.send(err,500); 
 					}else{	
-						db.Vendors.create({}, function (err, vendor) {
-					                if (err){
-				                        res.send(err,500);
-					                }else{
-								db.Shortcodes.find({code:suggestedCode},function(err,scode){
-	if(err){
-		res.send(err,500);
-	}else{
-		scode.vendorId=vendor._id;
-		scode.save();
-		res.send({message:'Vendor Created',vendorId:vendor._id},201);
-	}
-});                    
-					                }
-				                // saved!
-					        });
-
+						res.send({message:'Code Has been Created!',shortcodeId:shortcode._id},201);
+						
 					}
 	
 					// saved!

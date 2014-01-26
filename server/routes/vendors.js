@@ -5,11 +5,12 @@ var db = require('../database.js');
 var mongoose = require('mongoose');
 
 exports.createVendor = function (req, res) {
-	db.Vendors.create({}, function (err, vendor) {
+	var shortcodeId = req.body.shortcodeId;
+	db.Vendors.create({shortcodeId:shortcodeId}, function (err, vendor) {
 		if (err){
 			res.send(err,500); 
 		}else{
-			res.send({message:'Message Created',vendorId:vendor._id},201);  
+			res.send({message:'Vendor Created',vendorId:vendor._id},201);  
 		}	
 		// saved!
 	});
@@ -22,32 +23,59 @@ exports.getVendorInfo = function(req,res){
 		if(err){
 			res.send(err,500);
 		}else{
-			res.send(vendor,200);
+			db.Visitors.find({vendorId:vendorId}, function(err, visitors) {
+
+				var lastPosition = visitors.length == 0 ? 1 : visitors.length;
+				var currentlySeen = visitors.filter(function(visitor){
+					if(visitor.finished){
+						return visitor;
+					}
+				}).length;
+				var shortcodeId = vendor.shortcodeId; 
+				db.Shortcodes.findOne({_id:shortcodeId},function(err,shortcode){
+					if(err){
+						res.send(err,500);
+					}else{
+						shortcode.vendorId = vendorId; 
+						shortcode.save();
+						res.send({vendor:vendor,lastPosition:lastPosition,currentlySeen:currentlySeen,shortcode:shortcode.code},200);
+					}
+				})
+				
+				
+			});
+			
 		}
 	});
 };
 
 exports.addVisitor = function(req,res){
-	var shortcode = req.body.code;
+	var shortcode = req.body.shortcode;
 	console.log(req.body); 
-	db.Shortcodes.findOne({code:shortcode},function(err,shortcode){
+	db.Shortcodes.findOne({code:shortcode},function(err,scode){
 		if(err){
 			res.send(err,500);
-		}else{
-			var vendorId = shortcode.vendorId; 
-	
-		db.Visitors.find({vendorId:vendorId,position:{ $gt: 0 }}),function(err,visitors){
-		
-		var lastPosition = visitors.length==0 ? 1 : visitors.length; 
-		
-		db.Visitors.create({vendorId:vendorId,position:lastPosition},function(err,visitor){
-			if(err){
-				res.send(err,500);
-			}else{
-				res.send(visitor,201);
-			}		
-		});
-		}
+		} else {
+			console.log(scode);
+			var vendorId = scode.vendorId;
+
+			db.Visitors.find( {vendorId : vendorId}, function(err, visitors) {
+
+				var lastPosition = visitors.length > 0 ? visitors.length : 1;
+				var currentlySeen = visitors.filter(function(visitor){
+					if(visitor.finished){
+						return visitor;
+					}
+				}).length;
+
+				db.Visitors.create( {vendorId : vendorId,position : lastPosition}, function(err, visitor) {
+					if (err) {
+						res.send(err, 500);
+					} else {
+						res.send(visitor, 201);
+					}
+				});
+			});
 		}
 	})
 };

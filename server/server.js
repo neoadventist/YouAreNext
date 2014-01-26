@@ -48,7 +48,7 @@ server.get('/', function (req, res) {
 server.post('/API/shortcode',shortcode.create);
 server.post('/API/vendor',vendor.createVendor);
 server.get('/API/vendor/:vendorId',vendor.getVendorInfo);
-server.post('/API/visitor/',vendor.addVisitor);
+server.post('/API/visitor',vendor.addVisitor);
 server.post('/API/done/:visitorId',vendor.finishVisitor);
 
 
