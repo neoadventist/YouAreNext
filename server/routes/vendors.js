@@ -38,7 +38,7 @@ exports.getVendorInfo = function(req,res){
 					}else{
 						shortcode.vendorId = vendorId; 
 						shortcode.save();
-						res.send({vendor:vendor,lastPosition:lastPosition,currentlySeen:currentlySeen,shortcode:shortcode.code},200);
+						res.send({visitors:visitors,vendor:vendor,lastPosition:lastPosition,currentlySeen:currentlySeen,shortcode:shortcode.code},200);
 					}
 				})
 				
@@ -74,23 +74,15 @@ exports.addVisitor = function(req,res){
 exports.finishVisitor = function(req,res){
 
 	var visitorId = req.params.visitorId;
-	var vendorId = req.params.vendorId;
-	db.Visitors.find({vendorId:vendorId},function(err,visitors){
+	var vendorId = req.body.vendorId;
+	
+	var obj = {'vendorId':v.toString()};
+	db.Visitors.update({_id:visitorId},{$set: { finished: true }},function(err,visitors){
+		
 		if(err){
 			res.send(err,500);
 		}else{
-			for(var visitor=0;visitor<visitors.length;visitor++){
-				if(visitors[visitor].visitorId == visitorId){
-					visitors[visitor].time.out = new Date();
-				}else{
-					visitors[visitor].position--;
-					if(visitor[visitor].position<5){
-						//send notification to person that they will be next
-					}
-				}
-			}
-		
-			visitors.save();
+					
 			res.send(visitors,200);
 			
 		}
