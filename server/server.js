@@ -37,8 +37,8 @@ server.use(express.session({secret: 'LineNext'}));
 
 
 /* Setup Route Files */ 
-var vendor = require('./routes/vendor.js');
-var shortcode = require('./routes/shortcode.js');
+var vendor = require('./routes/vendors.js');
+var shortcode = require('./routes/shortcodes.js');
 
 /* Routes */
 server.get('/', function (req, res) {
@@ -47,9 +47,9 @@ server.get('/', function (req, res) {
 
 server.post('/API/shortcode',shortcode.create);
 server.post('/API/vendor',vendor.createVendor);
-server.get('/API/vendor/:vendorId',vendor.getVenderInfo);
+server.get('/API/vendor/:vendorId',vendor.getVendorInfo);
 server.post('/API/visitor/',vendor.addVisitor);
-server.post('/API/done/:vendorId/:sessionId',vendorFinishVisitor);
+server.post('/API/done/:visitorId',vendor.finishVisitor);
 
 
 /* Start the server */
